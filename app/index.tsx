@@ -12,6 +12,17 @@ const PermissionScreen = () => {
   const [mediaLibraryPermission, requestMediaLibraryPermissions] =
     ExpoMediaLibrary.usePermissions();
 
+  // Check initial permission status
+  useEffect(() => {
+    const checkPermissions = async () => {
+      const camera = await Camera.getCameraPermissionStatus();
+      const mic = await Camera.getMicrophonePermissionStatus();
+      setCameraPermissionStatus(camera);
+      setMicrophonePermissionStatus(mic);
+    };
+    checkPermissions();
+  }, []);
+
   // Derived boolean states for UI switches
   const cameraGranted = cameraPermissionStatus === "granted";
   const microphoneGranted = microphonePermissionStatus === "granted";
@@ -68,17 +79,6 @@ const PermissionScreen = () => {
     }
   };
 
-  // Check initial permission status
-  useEffect(() => {
-    const checkPermissions = async () => {
-      const camera = await Camera.getCameraPermissionStatus();
-      const mic = await Camera.getMicrophonePermissionStatus();
-      setCameraPermissionStatus(camera);
-      setMicrophonePermissionStatus(mic);
-    };
-    checkPermissions();
-  }, []);
-
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Permissions</Text>
@@ -113,7 +113,6 @@ export default PermissionScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#000",
     paddingHorizontal: 20,
     paddingTop: 60,
   },
@@ -122,7 +121,6 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     color: "#E6F4FE",
     marginBottom: 40,
-    textAlign: "center",
   },
   permissionItem: {
     flexDirection: "row",
