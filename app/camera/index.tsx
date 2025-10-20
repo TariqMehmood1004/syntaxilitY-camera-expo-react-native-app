@@ -11,7 +11,7 @@ const CameraIndex = () => {
 
   const router = useRouter();
 
-  if(redirectToPermission) return <Redirect href="/permissions" />;
+  if(redirectToPermission) return <Redirect href="/" />;
 
   if(!cameraDevice) return <></>;
 

@@ -5,8 +5,8 @@ const _layout = () => {
   return (
     <ThemeProvider value={DarkTheme}>
       <Stack>
-        
-        <Stack.Screen name="permissions/index" options={
+
+        <Stack.Screen name="index" options={
           {
             headerShown: true,
             title: 'Permissions',
