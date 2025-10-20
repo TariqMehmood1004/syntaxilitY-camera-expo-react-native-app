@@ -16,7 +16,7 @@ const _layout = () => {
           }
         } />
 
-        <Stack.Screen name="camera/index" options={
+        <Stack.Screen name="camera" options={
           {
             headerShown: true,
             title: 'Camera',
