@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Text, View, StyleSheet, Switch, Alert } from "react-native";
 import { Camera, CameraPermissionStatus } from "react-native-vision-camera";
 import * as ExpoMediaLibrary from "expo-media-library";
+import { Ionicons } from "@expo/vector-icons";
 
 const PermissionScreen = () => {
   const [cameraPermissionStatus, setCameraPermissionStatus] =
@@ -101,6 +102,19 @@ const PermissionScreen = () => {
         <Switch value={mediaGranted} onValueChange={handleMediaSwitch} />
       </View>
 
+      {/* Continue Button with Icon */}
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
+          marginTop: 40,
+        }}
+      >
+        <Ionicons name="arrow-forward" size={26} color="white" />
+      </View>
+
+
       <Text style={styles.footer}>
         Please enable all permissions to continue using the camera features.
       </Text>
@@ -114,7 +128,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 20,
-    paddingTop: 60,
+    paddingTop: 10,
   },
   title: {
     fontSize: 22,
