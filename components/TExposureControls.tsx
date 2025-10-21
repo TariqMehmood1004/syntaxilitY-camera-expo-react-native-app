@@ -28,6 +28,9 @@ export default function TExposureControls(
 
     const handleExposurePressed = (exposureValue: number) => {
         setExposure(exposureValue);
+
+        // close controls
+        setShowExposureControls(false);
     }
 
     return (

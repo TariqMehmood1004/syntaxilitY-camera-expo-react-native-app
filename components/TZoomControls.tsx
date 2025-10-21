@@ -35,6 +35,9 @@ export default function TZoomControls(
             const newZoom = Math.min(Math.max(zoomFactor, MIN_ZOOM), MAX_ZOOM);
             setZoom(newZoom);
         }
+
+        // close controls
+        setShowZoomControls(false);
     }
 
     return (
