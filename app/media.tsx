@@ -1,6 +1,5 @@
 import { Text, View, useWindowDimensions, Image, TouchableHighlight, ToastAndroid } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { Video } from "expo-av";
 import * as ExpoMediaLibrary from "expo-media-library";
 
 function MediaScreen() {
@@ -61,15 +60,7 @@ function MediaScreen() {
             />
             </View>
       ) : type === "video" ? (
-        <Video
-          source={{ uri: `file://${media}` }}
-          style={{
-            width: width,
-            height: height * 0.85,
-          }}
-          useNativeControls
-          shouldPlay
-        />
+        null
       ) : (
         <Text
           style={{

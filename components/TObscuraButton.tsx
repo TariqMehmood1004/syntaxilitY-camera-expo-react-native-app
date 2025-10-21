@@ -32,10 +32,11 @@ export function TObscuraButton({
                 style={[
                     styles.container,
                     {
-                        width: title ? "100%" : 47,
-                        height: 47,
-                        backgroundColor: Colors.dark.background,
-                        borderRadius: title ? 6 : 40,
+                        width: title ? "100%" : 50,
+                        height: 50,
+                        backgroundColor: "transparent",
+                        shadowColor: "transparent",
+                        borderRadius: title ? 6 : 50,
                         alignSelf: "flex-start"
                     },
                     containerStyle
