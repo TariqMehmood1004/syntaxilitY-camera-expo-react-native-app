@@ -22,6 +22,19 @@ const _layout = () => {
             headerBlurEffect: 'dark'
           }
         } />
+
+        <Stack.Screen name="media" options={
+          {
+            headerShown: true,
+            title: 'Media',
+            headerLargeTitle: true,
+            headerShadowVisible: false,
+            headerBlurEffect: 'dark',
+            presentation: 'modal'
+          }
+        } />
+
+
       </Stack>
     </ThemeProvider>
   )

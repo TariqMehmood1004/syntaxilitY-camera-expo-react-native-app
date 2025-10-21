@@ -1,10 +1,11 @@
-import { Redirect, useFocusEffect } from "expo-router";
-import { Text, View, StyleSheet, Platform, StatusBar, Linking } from "react-native";
+import { Redirect, router, useFocusEffect } from "expo-router";
+import { Text, View, StyleSheet, Platform, StatusBar, Linking, TouchableHighlight } from "react-native";
 import { Camera, CameraPermissionStatus, useCameraDevice, useCameraPermission } from "react-native-vision-camera";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TObscuraButton } from "@/components/TObscuraButton";
 import { BlurView } from "expo-blur"
+import { FontAwesome5, Ionicons } from "@expo/vector-icons";
 
 const CameraIndex = () => {
   const { hasPermission: hasCameraPermission, requestPermission: requestCameraPermission } = useCameraPermission();
@@ -14,6 +15,9 @@ const CameraIndex = () => {
   const [cameraPosition, setCameraPosition] = useState<"front" | "back">("back");
 
   const cameraDevice = useCameraDevice(cameraPosition);
+
+  // camera reference
+  const cameraRef = useRef<Camera>(null);
 
   // options
   const [zoom, setZoom] = useState(cameraDevice?.neutralZoom);
@@ -53,6 +57,26 @@ const CameraIndex = () => {
     return <Redirect href="/permissions" />;
   }
 
+  const handleTakePhoto = async () => {
+    try {
+      if(cameraRef.current === null) throw new Error("Camera ref is null")
+      const photo = await cameraRef.current.takePhoto({
+        flash: flash,
+        enableShutterSound: false,
+      });
+
+      router.push({
+        pathname: "/media",
+        params: { 
+          media: photo.path,
+          type: "photo",
+         },
+      })
+    } catch (error) {
+      console.error("Error taking photo:", error);
+    }
+  };
+
   if (!cameraDevice) return null;
 
   return (
@@ -62,19 +86,20 @@ const CameraIndex = () => {
           flex: 2,
           borderRadius: 10,
           overflow: "hidden",
-          backgroundColor: "red"
         }}>
           <Camera 
-            style={{ flex: 1 }} 
+            ref={cameraRef}
+            style={{ flex: 1 }}
             device={cameraDevice} 
             isActive
             zoom={zoom}
             exposure={exposure}
-            resizeMode="cover"
             torch={torch}
+            photo
+            video
             />
             <BlurView
-              tint="dark"
+              tint="prominent"
               intensity={100}
               style={{
                 position: "absolute",
@@ -82,6 +107,7 @@ const CameraIndex = () => {
                 bottom: 0,
                 padding: 10,
                 borderRadius: 10,
+                overflow: "hidden"
               }}
               experimentalBlurMethod="dimezisBlurView"
             >
@@ -147,7 +173,15 @@ const CameraIndex = () => {
             </View>
 
             {/* Bottom section */}
-
+            <View style={{
+              flex: 1.1,
+              flexDirection: "row",
+              justifyContent: "space-evenly",
+            }}>
+              <TouchableHighlight onPress={handleTakePhoto}>
+                <FontAwesome5 name="dot-circle" size={55} color="white" />
+              </TouchableHighlight>
+            </View>
           </View>
       </SafeAreaView>
     </>
