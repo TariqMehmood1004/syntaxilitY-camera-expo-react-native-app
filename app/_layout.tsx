@@ -8,18 +8,15 @@ const _layout = () => {
 
         <Stack.Screen name="index" options={
           {
-            headerShown: true,
-            title: 'Permissions',
-            headerLargeTitle: true,
-            headerShadowVisible: false,
-            headerBlurEffect: 'dark'
+            headerShown: false,
+            title: 'Camera',
           }
         } />
 
-        <Stack.Screen name="camera" options={
+        <Stack.Screen name="permissions" options={
           {
             headerShown: true,
-            title: 'Camera',
+            title: 'Permissions',
             headerLargeTitle: true,
             headerShadowVisible: false,
             headerBlurEffect: 'dark'
